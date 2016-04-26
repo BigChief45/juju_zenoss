@@ -1,0 +1,13 @@
+name: pdcm
+summary: monitor itri cloud
+maintainer: Daniel <Daniel@ubuntu>
+description: |
+  monitoring cloud
+tags:
+  # Replace "misc" with one or more whitelisted tags from this list:
+  # https://jujucharms.com/docs/stable/authors-charm-metadata
+  - monitoring
+subordinate: false
+#provides:
+#  provides-relation:
+#    interface: interface-name
