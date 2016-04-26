@@ -1,8 +1,8 @@
-name: pdcm
-summary: monitor itri cloud
-maintainer: Daniel <Daniel@ubuntu>
+name: Zenoss Core 4
+summary: Zenoss Monitoring
+maintainer: Jaime Alvarez
 description: |
-  monitoring cloud
+  Zenoss Core Monitoring Solution
 tags:
   # Replace "misc" with one or more whitelisted tags from this list:
   # https://jujucharms.com/docs/stable/authors-charm-metadata
