@@ -1,5 +1,5 @@
-name: Zenoss Core 4
-summary: Zenoss Monitoring
+name: zenoss
+summary: Zenoss Core 4.2.5
 maintainer: Jaime Alvarez
 description: |
   Zenoss Core Monitoring Solution
