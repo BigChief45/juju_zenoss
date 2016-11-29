@@ -1,9 +1,4 @@
 #!/bin/bash
-# Here do anything needed to install the service
-# i.e. apt-get install -y foo  or  bzr branch http://myserver/mycode /srv/webroot
-# Make sure this hook exits cleanly and is idempotent, common problems here are
-# failing to account for a debconf question on a dependency, or trying to pull
-# from github without installing git first.
 echo "start to install!!!"
 
 echo && echo "Welcome to the Zenoss 4.2.5 core-autodeploy script for Ubuntu and Debian! (http://hydruid-blog.com/?p=710)" && echo
@@ -20,8 +15,8 @@ ZVERb="4.2.5"
 ZVERc="2108"
 DVER="03c"
 PACKAGECLEANUP="yes" # Valid options are "yes" and "no"
-ServerIP="10.11.4.1"
-#add hostname
+
+# add hostname
 HOSTName=$(cat /etc/hostname)
 sed -i "1a  127.0.0.1 $HOSTName" /etc/hosts
 
@@ -36,7 +31,8 @@ fi
 #if [ $PACKAGECLEANUP = "yes" ]; then
 #        apt-get autoremove -y
 #fi
-#install JAVA
+
+# Install Java
 echo "start to install java!"
 sudo add-apt-repository -y  ppa:webupd8team/java
 sudo apt-get -y update
@@ -44,7 +40,7 @@ echo "oracle-java6-installer shared/accepted-oracle-license-v1-1 select true" | 
 sudo apt-get install -y  oracle-java6-installer
 #sudo apt-get install oracle-java6-installer // need to change,this will fail.
 
-#install snmp
+# Install SNMP
 echo "start to install snmp!"
 sudo apt-get install -y snmpd
 
@@ -97,17 +93,14 @@ if [ $curos = "debian" ]; then
         pkg-fix
 fi
 
-# Download Zenoss DEB and install it
-#wget -N http://softlayer-dal.dl.sourceforge.net/project/zenossforubuntu/zenoss-core-425-2108_03c_amd64.deb -P $DOWNDIR/
-echo "Link to server to get core package!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-wget $ServerIP/zenoss-core-425-2108_03c_amd64.deb -P $DOWNDIR/
+# Install Zenoss Core Debian Package
 if [ $UPGRADE = "no" ]; then
-	dpkg -i $DOWNDIR/zenoss-core-425-2108_03c_amd64.deb
+	dpkg -i $CHARMDIR/packages/zenoss-core-425-2108_03c_amd64.deb
 fi
 if [ $UPGRADE = "yes" ]; then
 	echo "...The follow errors are normal, still working to suppress them" && sleep 5
 	dpkg -r zenoss-core-424-1897
-        dpkg -i $DOWNDIR/zenoss-core-425-2108_03c_amd64.deb
+        dpkg -i $CHARMDIR/packages/zenoss-core-425-2108_03c_amd64.deb
 fi
 rm -f $ZENOSSHOME/zenoss$ZVER-srpm_install/variables.sh
 wget --no-check-certificate -N https://raw.github.com/hydruid/zenoss/master/core-autodeploy/$ZVERb/misc/variables.sh -P $ZENOSSHOME/zenoss$ZVER-srpm_install/
