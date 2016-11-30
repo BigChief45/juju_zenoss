@@ -109,13 +109,15 @@ if [ $curos = "debian" ]; then
 fi
 
 # Install Zenoss Core Debian Package
+status-set maintenance "Installing Zenoss Core"
+wget $COREDIR/zenoss-core-425-2108_03c_amd64.deb -P $DOWNDIR/
 if [ $UPGRADE = "no" ]; then
-	dpkg -i $COREDIR/zenoss-core-425-2108_03c_amd64.deb
+	dpkg -i $DOWNDIR/zenoss-core-425-2108_03c_amd64.deb
 fi
 if [ $UPGRADE = "yes" ]; then
 	echo "...The follow errors are normal, still working to suppress them" && sleep 5
 	dpkg -r zenoss-core-424-1897
-        dpkg -i $COREDIR/zenoss-core-425-2108_03c_amd64.deb
+        dpkg -i $DOWNDIR/zenoss-core-425-2108_03c_amd64.deb
 fi
 rm -f $ZENOSSHOME/zenoss$ZVER-srpm_install/variables.sh
 wget --no-check-certificate -N https://raw.github.com/hydruid/zenoss/master/core-autodeploy/$ZVERb/misc/variables.sh -P $ZENOSSHOME/zenoss$ZVER-srpm_install/
@@ -235,3 +237,5 @@ echo "Browse to $FINDIP:8080 to access your new Zenoss install."
 echo "The default login is:"
 echo "  username: admin"
 echo "  password: zenoss"
+
+status-set active "Zenoss deployed successfully"
